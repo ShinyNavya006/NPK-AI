@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fertilizer Recommendation Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+    <ul>
+        <li><a href="#graphs">Graphs</a></li>
+        <li><a href="#predict">Predict</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#samples">Samples</a></li>
+    </ul>
+</nav>
+
+<div class="dashboard">
+
+    <h1>Fertilizer Recommendation System</h1>
+
+    <!-- ================= THINGSPEAK GRAPHS ================= -->
+    <section id="graphs">
+        <h2>ThingSpeak Live Sensor Graphs</h2>
+
+        <div class="graph-card">
+            <iframe src="https://thingspeak.mathworks.com/channels/3226888/charts/1?dynamic=true&results=60&type=line&update=15"></iframe>
+            <iframe src="https://thingspeak.mathworks.com/channels/3226888/charts/2?dynamic=true&results=60&type=line&update=15"></iframe>
+            <iframe src="https://thingspeak.mathworks.com/channels/3226888/charts/3?dynamic=true&results=60&type=line&update=15"></iframe>
+        </div>
+    </section>
+
+    <!-- ================= FORM ================= -->
+    <section id="predict">
+        <form method="POST" id="predictForm" class="form-card">
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Soil Color</label>
+                    <select name="soil_color" id="soil_color" required>
+                        <option value="">Select</option>
+                        <option>Black</option>
+                        <option>Red</option>
+                        <option>Dark Brown</option>
+                        <option>Medium Brown</option>
+                        <option>Light Brown</option>
+                        <option>Reddish Brown</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Crop</label>
+                    <select name="crop" id="crop" required>
+                        <option value="">Select</option>
+                        <option>Rice</option>
+                        <option>Wheat</option>
+                        <option>Maize</option>
+                        <option>Cotton</option>
+                        <option>Soybean</option>
+                        <option>Gram</option>
+                        <option>Sugarcane</option>
+                        <option>Turmeric</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Nitrogen</label>
+                    <input type="number" name="nitrogen" id="nitrogen" step="any" required>
+                </div>
+
+                <div>
+                    <label>Phosphorus</label>
+                    <input type="number" name="phosphorus" id="phosphorus" step="any" required>
+                </div>
+
+                <div>
+                    <label>Potassium</label>
+                    <input type="number" name="potassium" id="potassium" step="any" required>
+                </div>
+
+            </div>
+
+            <button type="submit" class="predict-btn">Predict Fertilizer</button>
+            <button type="button" class="fetch-btn" onclick="fetchThingSpeak()">
+                Auto-Fill from Sensor
+            </button>
+
+        </form>
+    </section>
+
+    <!-- ================= RESULT ================= -->
+    {% if result %}
+    <section id="results">
+        <div class="result-card">
+            <h2>Recommendation</h2>
+
+            {% if result.balanced %}
+                <div class="alert success">
+                    🌿 <strong>{{ result.health_note }}</strong>
+                </div>
+            {% else %}
+                <p><b>Fertilizer:</b> {{ result.fertilizer }}</p>
+                <p><b>Confidence:</b> {{ result.confidence }}</p>
+
+                <h3>Quantity & Cost</h3>
+                <p>Required Quantity: {{ result.quantity }} kg/ha</p>
+                <p>Cost per kg: ₹{{ result.cost_per_kg }}</p>
+                <p><b>Total Cost:</b> ₹{{ result.total_cost }}</p>
+
+                <h3>Nutrient Supply (kg/ha)</h3>
+                <ul>
+                    <li>Nitrogen (N): {{ result.nutrients.N }}</li>
+                    <li>Phosphorus (P): {{ result.nutrients.P }}</li>
+                    <li>Potassium (K): {{ result.nutrients.K }}</li>
+                </ul>
+            {% endif %}
+
+            <h3>Nutrient Deficiency</h3>
+            <ul>
+                <li>N Deficiency: {{ result.deficiency.N }}</li>
+                <li>P Deficiency: {{ result.deficiency.P }}</li>
+                <li>K Deficiency: {{ result.deficiency.K }}</li>
+            </ul>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- ================= SAMPLE TEST CASES ================= -->
+    <section id="samples">
+        <h2> Sample Test Cases</h2>
+
+        <div class="samples">
+
+            <div class="sample-card" onclick="fillSample('Black','Cotton',0,0,0)">
+                <h4>Extreme Low Nutrients</h4>
+                <p>NPK: 0,0,0</p>
+            </div>
+
+            <div class="sample-card" onclick="fillSample('Red','Rice',200,100,100)">
+                <h4>Extreme High Nutrients</h4>
+                <p>NPK: 200,100,100</p>
+            </div>
+
+            <div class="sample-card" onclick="fillSample('Dark Brown','Maize',120,60,40)">
+                <h4>Micronutrient Only</h4>
+            </div>
+
+            <div class="sample-card" onclick="fillSample('Medium Brown','Wheat',119,59,39)">
+                <h4>Borderline Deficiency</h4>
+            </div>
+
+            <div class="sample-card" onclick="fillSample('Reddish Brown','Turmeric',50,20,15)">
+                <h4>Rare Soil & Crop</h4>
+            </div>
+
+            <div class="sample-card" onclick="fillSample('Light Brown','Soybean',120,30,40)">
+                <h4>Partial Deficiency</h4>
+            </div>
+
+            <div class="sample-card" onclick="fillSample('Black','Gram',90,45,40)">
+                <h4>Mixed Normal Case</h4>
+            </div>
+
+            <div class="sample-card" onclick="fillSample('Red','Sugarcane',200,10,80)">
+                <h4>Non-Standard Combo</h4>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+<script>
+function fillSample(soil, crop, n, p, k) {
+    document.getElementById("soil_color").value = soil;
+    document.getElementById("crop").value = crop;
+    document.getElementById("nitrogen").value = n;
+    document.getElementById("phosphorus").value = p;
+    document.getElementById("potassium").value = k;
+    window.location.href = "#predict";
+}
+async function fetchThingSpeak() {
+    const url = "https://api.thingspeak.com/channels/3226888/feeds.json?results=1";
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (!data.feeds || data.feeds.length === 0) {
+            alert("No sensor data available");
+            return;
+        }
+
+        const latest = data.feeds[0];
+
+        const N = latest.field1;
+        const P = latest.field2;
+        const K = latest.field3;
+
+        if (N === null || P === null || K === null) {
+            alert("Incomplete sensor values received");
+            return;
+        }
+
+        document.getElementById("nitrogen").value = parseFloat(N).toFixed(2);
+        document.getElementById("phosphorus").value = parseFloat(P).toFixed(2);
+        document.getElementById("potassium").value = parseFloat(K).toFixed(2);
+
+        window.location.href = "#predict";
+
+    } catch (error) {
+        console.error(error);
+        alert("Failed to fetch sensor data");
+    }
+}
+</script>
+
+</body>
+</html>
