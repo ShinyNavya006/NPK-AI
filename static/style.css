@@ -1,0 +1,227 @@
+/* ================= GLOBAL ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body {
+    background: #f4f7f6;
+    color: #2c3e50;
+    line-height: 1.6;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(90deg, #2ecc71, #27ae60);
+    padding: 12px 0;
+    z-index: 100;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* ================= DASHBOARD ================= */
+.dashboard {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.dashboard h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #1e8449;
+}
+
+/* ================= SECTION ================= */
+section {
+    margin-bottom: 40px;
+}
+
+section h2 {
+    margin-bottom: 15px;
+    color: #145a32;
+}
+
+/* ================= GRAPHS ================= */
+.graph-card {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+.graph-card iframe {
+    width: 100%;
+    height: 260px;
+    border: none;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* ================= FORM ================= */
+.form-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #dcdcdc;
+    outline: none;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: #2ecc71;
+    box-shadow: 0 0 0 2px rgba(46,204,113,0.2);
+}
+
+/* ================= BUTTON ================= */
+.predict-btn {
+    margin-top: 25px;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.predict-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* ================= RESULTS ================= */
+.result-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+}
+
+.result-card h2 {
+    margin-bottom: 15px;
+}
+
+.result-card h3 {
+    margin-top: 18px;
+    color: #196f3d;
+}
+
+.result-card ul {
+    margin-left: 20px;
+    margin-top: 8px;
+}
+
+.result-card li {
+    margin-bottom: 6px;
+}
+
+/* ================= ALERTS ================= */
+.alert {
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.alert.success {
+    background: #e9f9ef;
+    color: #1e8449;
+    border-left: 6px solid #2ecc71;
+}
+
+/* ================= SAMPLE TESTS ================= */
+.samples {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.sample-card {
+    background: #ffffff;
+    padding: 18px;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-left: 6px solid #2ecc71;
+}
+
+.sample-card h4 {
+    margin-bottom: 6px;
+    color: #145a32;
+}
+
+.sample-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 600px) {
+    .navbar ul {
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+}
+
+.fetch-btn {
+    margin-top: 12px;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.fetch-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
