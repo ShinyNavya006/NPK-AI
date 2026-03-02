@@ -1,4 +1,16 @@
 /* ================= GLOBAL ================= */
+:root {
+    --primary: #2ecc71;
+    --primary-dark: #27ae60;
+    --secondary: #3498db;
+    --accent: #196f3d;
+    --text: #2c3e50;
+    --bg: #f4f7f6;
+    --card-bg: #ffffff;
+    --radius: 10px;
+    --transition: 0.3s;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,19 +19,80 @@
 }
 
 body {
-    background: #f4f7f6;
-    color: #2c3e50;
+    background: var(--bg);
+    color: var(--text);
     line-height: 1.6;
+    transition: background var(--transition), color var(--transition);
 }
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.footer {
+    padding: 15px 0;
+    background: var(--primary-dark);
+    color: #fff;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.theme-toggle {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 20px;
+    transition: transform var(--transition);
+}
+.theme-toggle:hover { transform: scale(1.1); }
+
+body.dark-mode {
+    background: #2c3e50;
+    color: #ecf0f1;
+}
+body.dark-mode .navbar { background: #1b5e20; }
+body.dark-mode .form-card,
+body.dark-mode .result-card,
+body.dark-mode .sample-card,
+body.dark-mode .graph-card iframe { background: #3a3f44; }
+body.dark-mode input, body.dark-mode select { background: #555; color: #eee; border-color: #777; }
+body.dark-mode .predict-btn { background: linear-gradient(135deg, #1b5e20, #2e7d32); }
+body.dark-mode .fetch-btn { background: linear-gradient(135deg, #1e3a5f, #264d7c); }
+body.dark-mode .footer { background: #172e13; }
+
 
 /* ================= NAVBAR ================= */
 .navbar {
     position: sticky;
     top: 0;
-    background: linear-gradient(90deg, #2ecc71, #27ae60);
+    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
     padding: 12px 0;
     z-index: 100;
     box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
 }
 
 .navbar ul {
@@ -192,6 +265,13 @@ input:focus, select:focus {
 .sample-card h4 {
     margin-bottom: 6px;
     color: #145a32;
+}
+
+.sample-icon {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin: 0 auto 8px auto;
 }
 
 .sample-card:hover {
