@@ -2,22 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fertilizer Recommendation Dashboard</title>
+    <!-- icons & fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
 <!-- ================= NAVBAR ================= -->
-<nav class="navbar">
-    <ul>
-        <li><a href="#graphs">Graphs</a></li>
-        <li><a href="#predict">Predict</a></li>
-        <li><a href="#results">Results</a></li>
-        <li><a href="#samples">Samples</a></li>
-    </ul>
-</nav>
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <a class="logo" href="#">NPK AI</a>
+            <ul>
+                <li><a href="#graphs">Graphs</a></li>
+                <li><a href="#predict">Predict</a></li>
+                <li><a href="#results">Results</a></li>
+                <li><a href="#samples">Samples</a></li>
+            </ul>
+            <button id="themeToggle" class="theme-toggle" title="Toggle dark/light mode"><i class="fas fa-moon"></i></button>
+        </div>
+    </nav>
+</header>
 
-<div class="dashboard">
+<main class="dashboard container">
 
     <h1>Fertilizer Recommendation System</h1>
 
@@ -135,42 +144,56 @@
         <div class="samples">
 
             <div class="sample-card" onclick="fillSample('Black','Cotton',0,0,0)">
+                <i class="fas fa-seedling sample-icon"></i>
                 <h4>Extreme Low Nutrients</h4>
                 <p>NPK: 0,0,0</p>
             </div>
 
             <div class="sample-card" onclick="fillSample('Red','Rice',200,100,100)">
+                <i class="fas fa-seedling sample-icon"></i>
                 <h4>Extreme High Nutrients</h4>
                 <p>NPK: 200,100,100</p>
             </div>
 
             <div class="sample-card" onclick="fillSample('Dark Brown','Maize',120,60,40)">
+                <i class="fas fa-seedling sample-icon"></i>
                 <h4>Micronutrient Only</h4>
             </div>
 
             <div class="sample-card" onclick="fillSample('Medium Brown','Wheat',119,59,39)">
+                <i class="fas fa-seedling sample-icon"></i>
                 <h4>Borderline Deficiency</h4>
             </div>
 
             <div class="sample-card" onclick="fillSample('Reddish Brown','Turmeric',50,20,15)">
+                <i class="fas fa-seedling sample-icon"></i>
                 <h4>Rare Soil & Crop</h4>
             </div>
 
             <div class="sample-card" onclick="fillSample('Light Brown','Soybean',120,30,40)">
+                <i class="fas fa-seedling sample-icon"></i>
                 <h4>Partial Deficiency</h4>
             </div>
 
             <div class="sample-card" onclick="fillSample('Black','Gram',90,45,40)">
+                <i class="fas fa-seedling sample-icon"></i>
                 <h4>Mixed Normal Case</h4>
             </div>
 
             <div class="sample-card" onclick="fillSample('Red','Sugarcane',200,10,80)">
+                <i class="fas fa-seedling sample-icon"></i>
                 <h4>Non-Standard Combo</h4>
             </div>
 
         </div>
     </section>
-</div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2026 Fertilizer Recommendation System · Built with Flask &amp; ML</p>
+    </div>
+</footer>
 
 <script>
 function fillSample(soil, crop, n, p, k) {
@@ -214,6 +237,16 @@ async function fetchThingSpeak() {
         console.error(error);
         alert("Failed to fetch sensor data");
     }
+}
+
+// toggle light/dark theme
+if (document.getElementById('themeToggle')) {
+    document.getElementById('themeToggle').addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const icon = document.querySelector('#themeToggle i');
+        icon.classList.toggle('fa-moon');
+        icon.classList.toggle('fa-sun');
+    });
 }
 </script>
 
