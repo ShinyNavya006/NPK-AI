@@ -1,0 +1,39 @@
+ThingSpeak:
+https://thingspeak.mathworks.com/channels/3226888/private_show
+
+Kaggle:
+https://www.kaggle.com/datasets/sanchitagholap/crop-and-fertilizer-dataset-for-westernmaharashtra/data
+
+Command Prompt:
+
+python --version
+
+Go to Your Project Folder:
+cd D:\Fertilizer_Recommendation_System\fertilizer_app
+
+dir
+
+Go to:
+https://www.python.org/downloads/release/python-3119/
+
+Download:
+Windows installer (64-bit)
+
+py -0
+
+(Now you should see:
+
+-3.13
+-3.11)
+
+py -3.11 -m venv venv
+
+venv\Scripts\activate
+
+pip install -r requirements.txt
+
+python app.py
+
+Running on http://127.0.0.1:5000/
+
+paste above in Browser (http://127.0.0.1:5000)
